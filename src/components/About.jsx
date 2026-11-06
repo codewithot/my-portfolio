@@ -29,10 +29,10 @@ export function About({ onWritingsClick }) {
         {/* Right — Secondary tagline + blurb + badge */}
         <div className="about-right">
           <h2 className="about-secondary">
-            Engineer by day, dad by night, and a systems thinker in between.
+            Engineer by day, gamer by night, and a systems thinker in between.
           </h2>
           <p className="about-blurb">
-            When I'm not shipping APIs or orchestrating Kubernetes pipelines, I'm probably reading about architecture patterns, nerding out over a good Afrobeats set, or sneaking in quality time with my daughter.
+            When I'm not shipping APIs or orchestrating Kubernetes pipelines, I'm probably cruising on an open highway singing along to good music, locked into a video game session, or exploring clean architecture patterns.
           </p>
           <div className="about-badge">
             <RotatingBadge

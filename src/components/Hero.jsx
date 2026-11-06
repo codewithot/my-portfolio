@@ -38,7 +38,7 @@ export function Hero({ onExploreWorks }) {
               <span className="status-dot-sep">·</span>
               Turning <span className="status-highlight">ideas into products</span>
               <span className="status-dot-sep">·</span>
-              Dad duties <span className="status-highlight">in between 👨‍👧</span>
+              Gaming & cruising <span className="status-highlight">in between 🎮</span>
             </span>
           </div>
         </div>
