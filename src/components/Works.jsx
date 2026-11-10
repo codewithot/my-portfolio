@@ -1,5 +1,7 @@
 import React from 'react';
 import { RotatingBadge } from './RotatingBadge';
+import openKioskImg from '../assets/openkiosk.jpg';
+import skillbridgeImg from '../assets/skillbridge-africa.jpg';
 import './Works.css';
 
 const experiences = [
@@ -72,6 +74,25 @@ const experiences = [
     description:
       'Refactored high-value payment services (PushBankTransfer, PushBillPayment) for maintainability; built and tested API integrations for MTN MADAPI and Zenith Bank.',
     tags: ['API Integration', 'Payment Services', 'MTN MADAPI', 'Zenith Bank'],
+  },
+];
+
+const featuredProjects = [
+  {
+    name: 'OpenKiosk',
+    description:
+      'OpenKiosk is a modern multi-tenant e-commerce platform designed to help independent businesses, market stalls, and neighborhood retail businesses launch, customize, and manage their online storefronts / websites with zero technical overhead.',
+    image: openKioskImg,
+    tags: ['Multi-tenant', 'E-commerce', 'Storefront Builder', 'SaaS', 'Zero-Code'],
+    url: 'https://github.com/codewithot',
+  },
+  {
+    name: 'Skillbridge Africa',
+    description:
+      'High-fidelity marketplace connecting everyday customers with vetted local craftsmen across African cities',
+    image: skillbridgeImg,
+    tags: ['React 19', 'Tailwind CSS v4', 'Vite', 'Marketplace', 'African Cities'],
+    url: 'https://github.com/codewithot',
   },
 ];
 
@@ -154,6 +175,82 @@ export function Works({ onAboutClick }) {
           </div>
         </div>
 
+        {/* Selected Projects Section */}
+        <div className="works-projects">
+          <div className="works-projects-header">
+            <h2 className="works-projects-title">Selected projects</h2>
+            <p className="works-projects-subtitle">
+              Featured products and systems built with modern web technologies, scalable architectures, and zero-compromise UX.
+            </p>
+          </div>
+
+          {/* Featured Visual Showcase Grid */}
+          <div className="works-featured-grid">
+            {featuredProjects.map((project) => (
+              <div className="works-featured-card" key={project.name}>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="works-featured-media-link"
+                >
+                  <div className="works-featured-media">
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      className="works-featured-img"
+                      loading="lazy"
+                    />
+                    <div className="works-featured-overlay" />
+                  </div>
+                </a>
+
+                <div className="works-featured-body">
+                  <div className="works-featured-tags">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="exp-tag">{tag}</span>
+                    ))}
+                  </div>
+
+                  <h3 className="works-featured-title">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="works-featured-title-link"
+                    >
+                      <span>{project.name}</span>
+                      <span className="works-featured-arrow" aria-hidden="true">↗</span>
+                    </a>
+                  </h3>
+
+                  <p className="works-featured-desc">{project.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* More Projects Grid */}
+          <div className="works-more-projects">
+            <h3 className="works-more-title">More selected systems & platforms</h3>
+            <div className="works-projects-grid">
+              {projects.map((project) => (
+                <div className="works-project-item" key={project.name}>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="works-project-name"
+                  >
+                    {project.name}
+                  </a>
+                  <p className="works-project-desc">{project.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Experience Section */}
         <div className="works-experience">
           <div className="works-exp-header">
@@ -201,26 +298,6 @@ export function Works({ onAboutClick }) {
             >
               Read the full resume ↗
             </a>
-          </div>
-        </div>
-
-        {/* Selected Projects Section */}
-        <div className="works-projects">
-          <h2 className="works-projects-title">Selected projects</h2>
-          <div className="works-projects-grid">
-            {projects.map((project) => (
-              <div className="works-project-item" key={project.name}>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="works-project-name"
-                >
-                  {project.name}
-                </a>
-                <p className="works-project-desc">{project.description}</p>
-              </div>
-            ))}
           </div>
         </div>
 
