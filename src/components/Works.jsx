@@ -18,13 +18,13 @@ const experiences = [
   },
   {
     company: 'EGA Tech',
-    role: 'Backend / Automation Engineer',
-    subtitle: 'Contractor — VMO2',
+    role: 'Backend Developer / Automation Engineer',
+    subtitle: 'Contractor — Client: VMO2',
     period: 'Sep 2024 — Present',
     location: 'London, UK (Remote)',
     description:
-      "Built GitLab CI automation modules, Kubernetes/Helm deployment pipelines, and Python ORT acceptance tests for VMO2's OpenShift platform. Integrated HashiCorp Vault for credential handling and built audit-trail validation with Splunk/Kafka.",
-    tags: ['Python', 'GitLab CI', 'Kubernetes', 'Helm', 'HashiCorp Vault', 'OpenShift', 'Splunk', 'Node.js'],
+      "Engineered backend APIs and ad scheduling for VMO2's enterprise captive portal platform (branded Wi-Fi across venues), built impression tracking and metrics retrieval services, and resolved core signup/login page defects. Additionally authored GitLab CI automation modules, Kubernetes/Helm pipelines, and Python ORT acceptance tests on OpenShift.",
+    tags: ['Python', 'Node.js', 'REST APIs', 'GitLab CI', 'Kubernetes', 'Helm', 'HashiCorp Vault', 'OpenShift'],
   },
   {
     company: 'ProEdge / eXp Realty',
@@ -106,6 +106,12 @@ const featuredProjects = [
 ];
 
 const projects = [
+  {
+    name: 'VMO2 Enterprise Captive Portal',
+    description:
+      'Enterprise captive portal platform for VMO2 enabling businesses to provide branded Wi-Fi access. Extended backend APIs for ad scheduling across signup and login pages, built impression/interaction tracking APIs, and resolved page-generation defects.',
+    url: 'https://linkedin.com/in/victory-ikuomola',
+  },
   {
     name: 'Analytics & AI Platform',
     description:
@@ -272,7 +278,7 @@ export function Works({ onAboutClick }) {
             <p className="works-exp-subtitle">
               Highlights from each role. The full details are in my{' '}
               <a
-                href="https://docs.google.com/document/d/1tPXOaJMMUYCe2oOOEBI7E0jB6MD-U4Z9/edit?usp=sharing&ouid=101085036632476798211&rtpof=true&sd=true"
+                href="https://docs.google.com/document/d/1BWPNHqZUD2OLtAfpiL4wZq6WKCQvsn8_a4i6ifXNZcY/edit?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
                 className="works-resume-link"
@@ -305,7 +311,7 @@ export function Works({ onAboutClick }) {
           {/* Read the full resume button */}
           <div className="works-resume-cta">
             <a
-              href="https://docs.google.com/document/d/1tPXOaJMMUYCe2oOOEBI7E0jB6MD-U4Z9/edit?usp=sharing&ouid=101085036632476798211&rtpof=true&sd=true"
+              href="https://docs.google.com/document/d/1BWPNHqZUD2OLtAfpiL4wZq6WKCQvsn8_a4i6ifXNZcY/edit?usp=sharing"
               target="_blank"
               rel="noreferrer"
               className="works-resume-btn"

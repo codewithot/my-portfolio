@@ -12,6 +12,11 @@ export function Navbar({
   setCustomHours,
   isLiveTime,
   setIsLiveTime,
+  weather,
+  isLiveWeather,
+  setIsLiveWeather,
+  setCustomWeather,
+  onRefreshWeather,
 }) {
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -64,6 +69,11 @@ export function Navbar({
             setCustomHours={setCustomHours}
             isLiveTime={isLiveTime}
             setIsLiveTime={setIsLiveTime}
+            weather={weather}
+            isLiveWeather={isLiveWeather}
+            setIsLiveWeather={setIsLiveWeather}
+            setCustomWeather={setCustomWeather}
+            onRefreshWeather={onRefreshWeather}
           />
           <ThemeToggle theme={theme} onToggle={toggleTheme} />
         </div>

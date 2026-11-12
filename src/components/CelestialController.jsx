@@ -8,11 +8,16 @@ export function CelestialController({
   setCustomHours,
   isLiveTime,
   setIsLiveTime,
+  weather,
+  isLiveWeather,
+  setIsLiveWeather,
+  setCustomWeather,
+  onRefreshWeather,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef(null);
 
-  // Live real-world time tracker
+  // Live real-world browser clock tracker
   const [liveHours, setLiveHours] = useState(() => {
     const now = new Date();
     return now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
@@ -48,37 +53,37 @@ export function CelestialController({
   const celestial = getCelestialState(activeHours);
   const timeDisplay = formatTime(activeHours);
 
-  const presets = [
+  const timePresets = [
     { label: 'Dawn', hours: 6.2, icon: '🌅' },
     { label: 'Midday', hours: 12.0, icon: '☀️' },
     { label: 'Sunset', hours: 18.0, icon: '🌇' },
     { label: 'Night Moon', hours: 22.5, icon: '🌕' },
   ];
 
+  const weatherPresets = [
+    { type: 'clear', label: 'Clear Sky', icon: '☀️' },
+    { type: 'cloudy', label: 'Cloudy', icon: '⛅' },
+    { type: 'rain', label: 'Rain', icon: '🌧️' },
+    { type: 'thunderstorm', label: 'Storm', icon: '⛈️' },
+  ];
+
+  const weatherIcon = weather?.icon || (celestial.type === 'sun' ? '☀️' : '🌕');
+
   return (
     <div className="celestial-controller-wrapper" ref={popoverRef}>
-      {/* Trigger Pill Button */}
+      {/* Trigger Pill Button in Navbar */}
       <button
         className={`celestial-pill-btn ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen((prev) => !prev)}
-        aria-label="Toggle celestial lighting simulation options"
-        title="Celestial lighting controls"
+        aria-label="Toggle celestial lighting & weather simulation"
+        title="Celestial lighting & weather controls"
       >
-        <span className="celestial-icon-badge">
-          {celestial.type === 'sun' ? (
-            <span className="celestial-emoji">☀️</span>
-          ) : (
-            <span className="celestial-emoji">🌕</span>
-          )}
-        </span>
+        <span className="celestial-icon-badge">{weatherIcon}</span>
         <span className="celestial-pill-label">
-          {isLiveTime ? (
-            <>
-              <span className="live-dot" />
-              <span>{timeDisplay}</span>
-            </>
-          ) : (
-            <span>{timeDisplay}</span>
+          {isLiveTime && <span className="live-dot" />}
+          <span>{timeDisplay}</span>
+          {weather?.temperature !== undefined && (
+            <span className="pill-temp-tag">· {weather.temperature}°C</span>
           )}
         </span>
       </button>
@@ -88,7 +93,7 @@ export function CelestialController({
         <div className="celestial-popover">
           <div className="celestial-popover-header">
             <div className="celestial-popover-title-row">
-              <span className="popover-title">Celestial Simulation</span>
+              <span className="popover-title">Atmosphere & Weather</span>
               <button
                 className="popover-close-btn"
                 onClick={() => setIsOpen(false)}
@@ -98,48 +103,85 @@ export function CelestialController({
               </button>
             </div>
             <p className="popover-desc">
-              Real-time sun & moon cycle shining over the page.
+              Synchronized with your browser time & local weather.
             </p>
           </div>
 
           <div className="celestial-popover-body">
-            {/* Live vs Custom Toggle */}
-            <div className="mode-toggle-row">
-              <button
-                className={`mode-btn ${isLiveTime ? 'selected' : ''}`}
-                onClick={() => setIsLiveTime(true)}
-              >
-                <span className="mode-dot live" />
-                Live Real-Time
-              </button>
-              <button
-                className={`mode-btn ${!isLiveTime ? 'selected' : ''}`}
-                onClick={() => {
-                  setIsLiveTime(false);
-                  if (customHours === null) setCustomHours(liveHours);
-                }}
-              >
-                Custom Time
-              </button>
-            </div>
-
-            {/* Current Status Banner */}
+            {/* Live Weather & Location Status Card */}
             <div className="celestial-status-banner">
               <div className="status-current-badge">
-                <span className="status-icon">
-                  {celestial.type === 'sun' ? '☀️' : '🌕'}
-                </span>
-                <span className="status-title">{celestial.label}</span>
+                <span className="status-icon">{weather?.icon || '☀️'}</span>
+                <div>
+                  <div className="status-title">
+                    {weather?.label || celestial.label}
+                  </div>
+                  <div className="status-location-sub">
+                    📍 {weather?.city || 'Local Area'} · {weather?.temperature ?? 24}°C
+                  </div>
+                </div>
               </div>
-              <span className="status-time-val">{timeDisplay}</span>
+              <div className="status-meta-right">
+                <span className="status-time-val">{timeDisplay}</span>
+                {isLiveWeather && (
+                  <button
+                    className="weather-refresh-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onRefreshWeather) onRefreshWeather();
+                    }}
+                    title="Refresh local weather"
+                  >
+                    ↻ Sync
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Interactive 24-Hour Slider */}
-            <div className="slider-control-group">
-              <div className="slider-label-row">
-                <span className="slider-label">Scrub Time of Day</span>
-                <span className="slider-subtext">00:00 — 23:59</span>
+            {/* Weather Mode: Live vs Override */}
+            <div className="presets-group">
+              <div className="section-header-row">
+                <span className="presets-label">Weather Condition</span>
+                <button
+                  className={`pill-auto-toggle ${isLiveWeather ? 'active' : ''}`}
+                  onClick={() => setIsLiveWeather(true)}
+                >
+                  {isLiveWeather ? '● Live Location' : 'Use Live'}
+                </button>
               </div>
+              <div className="preset-chips">
+                {weatherPresets.map((wp) => {
+                  const isSelected = !isLiveWeather && weather?.weatherType === wp.type;
+                  return (
+                    <button
+                      key={wp.type}
+                      className={`preset-chip-btn ${isSelected ? 'selected' : ''}`}
+                      onClick={() => {
+                        setIsLiveWeather(false);
+                        setCustomWeather(wp.type);
+                      }}
+                    >
+                      <span>{wp.icon}</span>
+                      <span>{wp.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Time Mode: Live Browser vs Custom Scrub */}
+            <div className="presets-group">
+              <div className="section-header-row">
+                <span className="presets-label">Browser Time</span>
+                <button
+                  className={`pill-auto-toggle ${isLiveTime ? 'active' : ''}`}
+                  onClick={() => setIsLiveTime(true)}
+                >
+                  {isLiveTime ? '● Live Clock' : 'Use Live'}
+                </button>
+              </div>
+
+              {/* 24-Hour Slider */}
               <input
                 type="range"
                 min="0"
@@ -160,35 +202,36 @@ export function CelestialController({
                 <span>6 PM</span>
                 <span>12 AM</span>
               </div>
-            </div>
 
-            {/* Quick Presets */}
-            <div className="presets-group">
-              <span className="presets-label">Quick Preview</span>
-              <div className="preset-chips">
-                {presets.map((preset) => (
+              {/* Time Presets */}
+              <div className="preset-chips" style={{ marginTop: '8px' }}>
+                {timePresets.map((tp) => (
                   <button
-                    key={preset.label}
+                    key={tp.label}
                     className="preset-chip-btn"
                     onClick={() => {
                       setIsLiveTime(false);
-                      setCustomHours(preset.hours);
+                      setCustomHours(tp.hours);
                     }}
                   >
-                    <span>{preset.icon}</span>
-                    <span>{preset.label}</span>
+                    <span>{tp.icon}</span>
+                    <span>{tp.label}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Reset to Live Time */}
-            {!isLiveTime && (
+            {/* Reset All to Live Button */}
+            {(!isLiveTime || !isLiveWeather) && (
               <button
                 className="reset-live-btn"
-                onClick={() => setIsLiveTime(true)}
+                onClick={() => {
+                  setIsLiveTime(true);
+                  setIsLiveWeather(true);
+                  if (onRefreshWeather) onRefreshWeather();
+                }}
               >
-                ↺ Reset to Real-World Time
+                ↺ Reset to Live Browser Time & Weather
               </button>
             )}
           </div>
