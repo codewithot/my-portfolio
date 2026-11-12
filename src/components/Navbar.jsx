@@ -1,8 +1,18 @@
 import React from 'react';
 import { ThemeToggle } from './ThemeToggle';
+import { CelestialController } from './CelestialController';
 import './Navbar.css';
 
-export function Navbar({ activeTab, setActiveTab, theme, toggleTheme }) {
+export function Navbar({
+  activeTab,
+  setActiveTab,
+  theme,
+  toggleTheme,
+  customHours,
+  setCustomHours,
+  isLiveTime,
+  setIsLiveTime,
+}) {
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'works', label: 'Works' },
@@ -46,8 +56,15 @@ export function Navbar({ activeTab, setActiveTab, theme, toggleTheme }) {
           </div>
         </nav>
 
-        {/* Right Column: Theme toggle */}
+        {/* Right Column: Celestial controller + Theme toggle */}
         <div className="nav-col nav-right">
+          <CelestialController
+            theme={theme}
+            customHours={customHours}
+            setCustomHours={setCustomHours}
+            isLiveTime={isLiveTime}
+            setIsLiveTime={setIsLiveTime}
+          />
           <ThemeToggle theme={theme} onToggle={toggleTheme} />
         </div>
       </div>

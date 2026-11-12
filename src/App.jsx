@@ -5,12 +5,20 @@ import { Works } from './components/Works';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { CelestialSky } from './components/CelestialSky';
 import './App.css';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('portfolio-theme') || 'dark';
+  });
+
+  // Celestial lighting state (Real-world live time by default)
+  const [isLiveTime, setIsLiveTime] = useState(true);
+  const [customHours, setCustomHours] = useState(() => {
+    const now = new Date();
+    return now.getHours() + now.getMinutes() / 60;
   });
 
   useEffect(() => {
@@ -27,12 +35,22 @@ export default function App() {
       {/* Background ambient lighting */}
       <div className="ambient-glow" aria-hidden="true" />
 
+      {/* Realistic celestial sun & moon lighting system for dark mode */}
+      <CelestialSky
+        theme={theme}
+        externalTime={isLiveTime ? null : customHours}
+      />
+
       {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         theme={theme}
         toggleTheme={toggleTheme}
+        customHours={customHours}
+        setCustomHours={setCustomHours}
+        isLiveTime={isLiveTime}
+        setIsLiveTime={setIsLiveTime}
       />
 
       {/* Main View Area */}

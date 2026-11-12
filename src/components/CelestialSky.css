@@ -1,0 +1,480 @@
+/* =========================================================
+   CELESTIAL SKY LIGHTING SYSTEM (SUN & MOON)
+   ========================================================= */
+
+.celestial-sky-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1; /* Sits behind navbar (z-index 50) and content, above dark background */
+  overflow: hidden;
+  transition: opacity 0.8s ease;
+}
+
+/* 1. Large Ambient Atmospheric Sky Bloom */
+.celestial-ambient-bloom {
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 1300px;
+  height: 1100px;
+  pointer-events: none;
+  transition: background 1.5s ease;
+  mix-blend-mode: screen;
+  will-change: opacity, transform;
+  animation: atmosphericBreathe 8s ease-in-out infinite alternate;
+}
+
+/* 2. Soft Ambient Page Wash */
+.celestial-page-wash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: background 1.5s ease;
+}
+
+/* 3. Twinkling Stars Layer */
+.celestial-stars-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 60%;
+  pointer-events: none;
+}
+
+.stars-svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star-point {
+  animation: starTwinkle 3s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+.star-gleam {
+  animation: starGleamPulse 4s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes starGleamPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(45deg);
+  }
+}
+
+/* 4. Volumetric Light Rays (God Rays) */
+.celestial-volumetric-rays {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+
+.volumetric-rays-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Individual light shafts with staggered gentle motion */
+.ray-shaft {
+  transform-origin: 90% 5%;
+  will-change: opacity, transform;
+}
+
+.ray-shaft-1 {
+  animation: raySweep1 10s ease-in-out infinite alternate;
+}
+
+.ray-shaft-2 {
+  animation: raySweep2 8s ease-in-out infinite alternate;
+  animation-delay: -2s;
+}
+
+.ray-shaft-3 {
+  animation: raySweep3 12s ease-in-out infinite alternate;
+  animation-delay: -5s;
+}
+
+.ray-shaft-4 {
+  animation: raySweep1 9s ease-in-out infinite alternate;
+  animation-delay: -3s;
+}
+
+.ray-shaft-5 {
+  animation: raySweep2 11s ease-in-out infinite alternate;
+  animation-delay: -7s;
+}
+
+.ray-shaft-6 {
+  animation: raySweep3 13s ease-in-out infinite alternate;
+  animation-delay: -1s;
+}
+
+@keyframes raySweep1 {
+  0% {
+    opacity: 0.55;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: rotate(0.8deg) scale(1.02);
+  }
+  100% {
+    opacity: 0.65;
+    transform: rotate(-0.5deg) scale(0.99);
+  }
+}
+
+@keyframes raySweep2 {
+  0% {
+    opacity: 0.8;
+    transform: rotate(0deg);
+  }
+  50% {
+    opacity: 0.45;
+    transform: rotate(-1deg);
+  }
+  100% {
+    opacity: 0.95;
+    transform: rotate(0.6deg);
+  }
+}
+
+@keyframes raySweep3 {
+  0% {
+    opacity: 0.45;
+    transform: rotate(-0.6deg);
+  }
+  50% {
+    opacity: 0.85;
+    transform: rotate(0.5deg);
+  }
+  100% {
+    opacity: 0.5;
+    transform: rotate(-0.2deg);
+  }
+}
+
+/* 5. Celestial Orb Position (Sun / Moon) in Top Right */
+.celestial-orb-anchor {
+  position: absolute;
+  top: 18px;
+  right: clamp(24px, 6vw, 90px);
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* =========================================================
+   REALISTIC SUN STYLES
+   ========================================================= */
+
+.realistic-sun-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer expansive solar corona */
+.sun-corona-outer {
+  position: absolute;
+  width: 580px;
+  height: 580px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sunCoronaPulse 5s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Mid corona ring with intense plasma heat */
+.sun-corona-mid {
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sunMidPlasma 3.5s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Diffraction Spikes / Starburst Optical Flare */
+.sun-diffraction-spikes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.diffraction-ray {
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.7) 45%,
+    #ffffff 50%,
+    rgba(255, 255, 255, 0.7) 55%,
+    transparent 100%
+  );
+  border-radius: 9999px;
+  filter: blur(1.2px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.diffraction-ray.horizontal {
+  width: 260px;
+  height: 2px;
+  animation: diffractionBreathe 6s ease-in-out infinite alternate;
+}
+
+.diffraction-ray.vertical {
+  width: 2px;
+  height: 260px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.7) 45%,
+    #ffffff 50%,
+    rgba(255, 255, 255, 0.7) 55%,
+    transparent 100%
+  );
+  animation: diffractionBreathe 6s ease-in-out infinite alternate;
+}
+
+.diffraction-ray.diagonal-1 {
+  width: 160px;
+  height: 1.5px;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+.diffraction-ray.diagonal-2 {
+  width: 160px;
+  height: 1.5px;
+  transform: rotate(-45deg);
+  opacity: 0.6;
+}
+
+/* SVG Sun Core */
+.sun-sphere-svg {
+  position: relative;
+  z-index: 3;
+  filter: drop-shadow(0 0 16px rgba(255, 200, 50, 0.85));
+}
+
+.solar-prominence-ring {
+  transform-origin: center;
+  animation: prominenceRotate 35s linear infinite;
+}
+
+/* Secondary Lens Flare Along Diagonal Axis */
+.sun-lens-flare {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.flare-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.flare-1 {
+  width: 24px;
+  height: 24px;
+  top: 120px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(255, 200, 100, 0.45) 0%, transparent 70%);
+  filter: blur(2px);
+}
+
+.flare-2 {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  top: 200px;
+  left: -240px;
+  border: 1px solid rgba(255, 220, 150, 0.22);
+  border-radius: 50%;
+  filter: blur(1.5px);
+}
+
+.flare-3 {
+  width: 14px;
+  height: 14px;
+  top: 290px;
+  left: -330px;
+  background: radial-gradient(circle, rgba(160, 230, 255, 0.35) 0%, transparent 70%);
+  filter: blur(1px);
+}
+
+@keyframes sunCoronaPulse {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes sunMidPlasma {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes diffractionBreathe {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes prominenceRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   REALISTIC MOON STYLES
+   ========================================================= */
+
+.realistic-moon-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Atmospheric 22-degree Lunar Halo */
+.moon-halo-outer {
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: moonHaloPulse 6s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Inner lunar ring */
+.moon-halo-inner {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  box-shadow: 0 0 45px 14px rgba(180, 215, 255, 0.38), inset 0 0 15px rgba(230, 245, 255, 0.5);
+  pointer-events: none;
+}
+
+/* SVG Moon Sphere */
+.moon-sphere-svg {
+  position: relative;
+  z-index: 3;
+  filter: drop-shadow(0 0 18px rgba(190, 225, 255, 0.65));
+  animation: moonFloat 8s ease-in-out infinite alternate;
+}
+
+@keyframes moonHaloPulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes moonFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes atmosphericBreathe {
+  0% {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsiveness - Completely hidden on mobile screens */
+@media (max-width: 768px) {
+  .celestial-sky-root {
+    display: none !important;
+  }
+}
+

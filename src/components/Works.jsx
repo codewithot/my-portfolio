@@ -2,6 +2,7 @@ import React from 'react';
 import { RotatingBadge } from './RotatingBadge';
 import openKioskImg from '../assets/openkiosk.jpg';
 import skillbridgeImg from '../assets/skillbridge-africa.jpg';
+import tractivImg from '../assets/tractiv.png';
 import './Works.css';
 
 const experiences = [
@@ -84,15 +85,23 @@ const featuredProjects = [
       'OpenKiosk is a modern multi-tenant e-commerce platform designed to help independent businesses, market stalls, and neighborhood retail businesses launch, customize, and manage their online storefronts / websites with zero technical overhead.',
     image: openKioskImg,
     tags: ['Multi-tenant', 'E-commerce', 'Storefront Builder', 'SaaS', 'Zero-Code'],
-    url: 'https://github.com/codewithot',
+    url: 'https://open-kiosk.vercel.app/',
   },
   {
     name: 'Skillbridge Africa',
     description:
-      'High-fidelity marketplace connecting everyday customers with vetted local craftsmen across African cities',
+      'High-fidelity marketplace connecting everyday customers with vetted local craftsmen across African cities. Powered by React 19, Tailwind CSS v4, and Vite.',
     image: skillbridgeImg,
     tags: ['React 19', 'Tailwind CSS v4', 'Vite', 'Marketplace', 'African Cities'],
-    url: 'https://github.com/codewithot',
+    url: 'https://skillbridge-africa-seven.vercel.app/',
+  },
+  {
+    name: 'Tractiv',
+    description:
+      'A workspace platform that helps companies coordinate team workflows, set precise access permissions, and track every change with a complete, tamper-proof activity log.',
+    image: tractivImg,
+    tags: ['Team Management', 'Access Control', 'NestJS', 'PostgreSQL', 'Audit Logs'],
+    url: 'https://tractiv-frontend.vercel.app/',
   },
 ];
 
@@ -102,12 +111,6 @@ const projects = [
     description:
       'Multi-tenant analytics service with RAG search on pgvector, LLM-powered report generation, and a Celery worker pipeline handling brand, competitor, and commerce intelligence.',
     url: 'https://linkedin.com/in/victory-ikuomola',
-  },
-  {
-    name: 'Tractiv — Team & Workflow Management SaaS',
-    description:
-      'An enterprise-grade, multi-tenant B2B SaaS platform for team and workflow management, featuring tenant isolation, granular RBAC, immutable audit trails, and Kafka-powered event-driven architecture. Built with NestJS, PostgreSQL, Docker, Kubernetes, and GCP.',
-    url: 'https://github.com/codewithot', // Replace with actual project URL
   },
   {
     name: 'Campaign Intelligence Engine',
@@ -178,9 +181,13 @@ export function Works({ onAboutClick }) {
         {/* Selected Projects Section */}
         <div className="works-projects">
           <div className="works-projects-header">
-            <h2 className="works-projects-title">Selected projects</h2>
+            <div className="works-section-pill">
+              <span className="pill-dot" aria-hidden="true" />
+              <span>Personal Projects</span>
+            </div>
+            <h2 className="works-projects-title">Featured Personal Projects</h2>
             <p className="works-projects-subtitle">
-              Featured products and systems built with modern web technologies, scalable architectures, and zero-compromise UX.
+              Independent SaaS platforms and marketplaces conceived, architected, and engineered end-to-end as personal products.
             </p>
           </div>
 
@@ -195,6 +202,10 @@ export function Works({ onAboutClick }) {
                   className="works-featured-media-link"
                 >
                   <div className="works-featured-media">
+                    <span className="works-card-badge">
+                      <span className="badge-sparkle" aria-hidden="true">✦</span>
+                      <span>Personal Project</span>
+                    </span>
                     <img
                       src={project.image}
                       alt={project.name}
@@ -232,7 +243,10 @@ export function Works({ onAboutClick }) {
 
           {/* More Projects Grid */}
           <div className="works-more-projects">
-            <h3 className="works-more-title">More selected systems & platforms</h3>
+            <h3 className="works-more-title">Other Engineering & Client Platforms</h3>
+            <p className="works-more-subtitle">
+              Distributed services, automation suites, and backend infrastructure engineered across contracts and client roles.
+            </p>
             <div className="works-projects-grid">
               {projects.map((project) => (
                 <div className="works-project-item" key={project.name}>
