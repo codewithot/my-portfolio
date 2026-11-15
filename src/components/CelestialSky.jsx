@@ -196,8 +196,8 @@ export function CelestialSky({ theme, externalTime, weather }) {
       <div
         className="celestial-volumetric-rays"
         style={{
-          opacity: isRaining ? 0.45 : isCloudy ? 0.65 : 0.95,
-          filter: isRaining ? 'blur(6px)' : 'none',
+          opacity: isRaining ? 0.16 : isCloudy ? 0.22 : 0.38,
+          filter: isRaining ? 'blur(10px)' : 'blur(4px)',
           transition: 'opacity 1s ease',
         }}
       >
@@ -208,56 +208,56 @@ export function CelestialSky({ theme, externalTime, weather }) {
         >
           <defs>
             <linearGradient id="celestialRayGrad1" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.85" />
-              <stop offset="25%" stopColor={celestial.rayColor} stopOpacity="0.5" />
-              <stop offset="65%" stopColor={celestial.rayColor} stopOpacity="0.18" />
+              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.45" />
+              <stop offset="30%" stopColor={celestial.rayColor} stopOpacity="0.22" />
+              <stop offset="70%" stopColor={celestial.rayColor} stopOpacity="0.06" />
               <stop offset="100%" stopColor={celestial.rayColor} stopOpacity="0" />
             </linearGradient>
             <linearGradient id="celestialRayGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.7" />
-              <stop offset="35%" stopColor={celestial.rayColor} stopOpacity="0.4" />
-              <stop offset="75%" stopColor={celestial.rayColor} stopOpacity="0.1" />
+              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.38" />
+              <stop offset="35%" stopColor={celestial.rayColor} stopOpacity="0.18" />
+              <stop offset="75%" stopColor={celestial.rayColor} stopOpacity="0.05" />
               <stop offset="100%" stopColor={celestial.rayColor} stopOpacity="0" />
             </linearGradient>
             <linearGradient id="celestialRayGrad3" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.9" />
-              <stop offset="30%" stopColor={celestial.rayColor} stopOpacity="0.45" />
-              <stop offset="80%" stopColor={celestial.rayColor} stopOpacity="0.08" />
+              <stop offset="0%" stopColor={celestial.rayGlow || celestial.rayColor} stopOpacity="0.45" />
+              <stop offset="30%" stopColor={celestial.rayColor} stopOpacity="0.22" />
+              <stop offset="80%" stopColor={celestial.rayColor} stopOpacity="0.04" />
               <stop offset="100%" stopColor={celestial.rayColor} stopOpacity="0" />
             </linearGradient>
-            <filter id="rayBlur" x="-10%" y="-10%" width="120%" height="120%">
-              <feGaussianBlur stdDeviation="12" />
+            <filter id="rayBlur" x="-15%" y="-15%" width="130%" height="130%">
+              <feGaussianBlur stdDeviation="28" />
             </filter>
           </defs>
 
           <g filter="url(#rayBlur)">
             <polygon
-              points="1260,45 -200,680 -200,820 1260,45"
+              points="1270,126 -200,680 -200,820 1270,126"
               fill="url(#celestialRayGrad1)"
               className="ray-shaft ray-shaft-1"
             />
             <polygon
-              points="1260,45 80,900 240,900 1260,45"
+              points="1270,126 80,900 240,900 1270,126"
               fill="url(#celestialRayGrad2)"
               className="ray-shaft ray-shaft-2"
             />
             <polygon
-              points="1260,45 320,900 460,900 1260,45"
+              points="1270,126 320,900 460,900 1270,126"
               fill="url(#celestialRayGrad3)"
               className="ray-shaft ray-shaft-3"
             />
             <polygon
-              points="1260,45 540,900 660,900 1260,45"
+              points="1270,126 540,900 660,900 1270,126"
               fill="url(#celestialRayGrad1)"
               className="ray-shaft ray-shaft-4"
             />
             <polygon
-              points="1260,45 780,900 900,900 1260,45"
+              points="1270,126 780,900 900,900 1270,126"
               fill="url(#celestialRayGrad2)"
               className="ray-shaft ray-shaft-5"
             />
             <polygon
-              points="1260,45 -150,420 -150,530 1260,45"
+              points="1270,126 -150,420 -150,530 1270,126"
               fill="url(#celestialRayGrad3)"
               className="ray-shaft ray-shaft-6"
             />
@@ -269,7 +269,7 @@ export function CelestialSky({ theme, externalTime, weather }) {
       <div
         className="celestial-orb-anchor"
         style={{
-          opacity: isStorm ? 0.35 : isRaining ? 0.6 : isCloudy ? 0.75 : 1,
+          opacity: isStorm ? 0.25 : isRaining ? 0.38 : isCloudy ? 0.48 : 0.65,
           transition: 'opacity 1s ease',
         }}
       >
@@ -279,13 +279,13 @@ export function CelestialSky({ theme, externalTime, weather }) {
             <div
               className="sun-corona-outer"
               style={{
-                background: `radial-gradient(circle, ${celestial.sunAtmosphere} 0%, rgba(255, 180, 0, 0.15) 45%, transparent 72%)`,
+                background: `radial-gradient(circle, ${celestial.sunAtmosphere} 0%, rgba(255, 180, 50, 0.08) 45%, transparent 72%)`,
               }}
             />
             <div
               className="sun-corona-mid"
               style={{
-                boxShadow: `0 0 70px 25px ${celestial.sunCoronaColor}, inset 0 0 35px #ffffff`,
+                boxShadow: `0 0 35px 10px ${celestial.sunCoronaColor}, inset 0 0 16px rgba(255, 255, 255, 0.75)`,
               }}
             />
             {!isRaining && (
@@ -299,21 +299,23 @@ export function CelestialSky({ theme, externalTime, weather }) {
             <svg
               className="sun-sphere-svg"
               viewBox="0 0 100 100"
-              width="90"
-              height="90"
+              width="68"
+              height="68"
             >
               <defs>
-                <radialGradient id="sunCoreGrad" cx="48%" cy="48%" r="52%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="32%" stopColor={celestial.sunInnerGlow} />
-                  <stop offset="65%" stopColor={celestial.sunCoronaColor} />
-                  <stop offset="90%" stopColor="#f77f00" />
-                  <stop offset="100%" stopColor="#d62828" />
+                <radialGradient id="sunCoreGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                  <stop offset="30%" stopColor={celestial.sunInnerGlow || '#fff5d0'} stopOpacity="0.88" />
+                  <stop offset="68%" stopColor={celestial.sunCoronaColor || '#ffb703'} stopOpacity="0.62" />
+                  <stop offset="88%" stopColor={celestial.sunCoronaColor || '#ff9800'} stopOpacity="0.25" />
+                  <stop offset="100%" stopColor={celestial.sunCoronaColor || '#ff9800'} stopOpacity="0" />
                 </radialGradient>
-                <filter id="sunGlowFilter">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
+                <filter id="sunGlowFilter" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blurWide" />
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blurSoft" />
                   <feMerge>
-                    <feMergeNode in="blur" />
+                    <feMergeNode in="blurWide" />
+                    <feMergeNode in="blurSoft" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
@@ -321,29 +323,11 @@ export function CelestialSky({ theme, externalTime, weather }) {
               <circle
                 cx="50"
                 cy="50"
-                r="44"
+                r="46"
                 fill="url(#sunCoreGrad)"
                 filter="url(#sunGlowFilter)"
               />
-              <circle
-                cx="50"
-                cy="50"
-                r="45.5"
-                fill="none"
-                stroke={celestial.sunCoronaColor}
-                strokeWidth="1.5"
-                opacity="0.8"
-                strokeDasharray="4 8 12 6"
-                className="solar-prominence-ring"
-              />
             </svg>
-            {!isRaining && (
-              <div className="sun-lens-flare">
-                <span className="flare-orb flare-1" />
-                <span className="flare-ring flare-2" />
-                <span className="flare-orb flare-3" />
-              </div>
-            )}
           </div>
         ) : (
           /* =================== REALISTIC MOON =================== */
@@ -351,32 +335,32 @@ export function CelestialSky({ theme, externalTime, weather }) {
             <div
               className="moon-halo-outer"
               style={{
-                background: `radial-gradient(circle, ${celestial.moonGlow} 0%, rgba(180, 215, 255, 0.16) 42%, rgba(130, 180, 255, 0.05) 65%, transparent 78%)`,
+                background: `radial-gradient(circle, ${celestial.moonGlow} 0%, rgba(180, 215, 255, 0.08) 45%, rgba(130, 180, 255, 0.02) 65%, transparent 78%)`,
               }}
             />
             <div className="moon-halo-inner" />
             <svg
               className="moon-sphere-svg"
               viewBox="0 0 100 100"
-              width="90"
-              height="90"
+              width="68"
+              height="68"
             >
               <defs>
-                <radialGradient id="moonBaseGrad" cx="38%" cy="36%" r="62%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="25%" stopColor="#e8edf5" />
-                  <stop offset="60%" stopColor="#c8d2e0" />
-                  <stop offset="85%" stopColor="#9daaba" />
-                  <stop offset="100%" stopColor="#768496" />
+                <radialGradient id="moonBaseGrad" cx="42%" cy="40%" r="58%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.92" />
+                  <stop offset="35%" stopColor="#e2e8f0" stopOpacity="0.85" />
+                  <stop offset="70%" stopColor="#b4c2d3" stopOpacity="0.75" />
+                  <stop offset="92%" stopColor="#8796a8" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#64748b" stopOpacity="0.38" />
                 </radialGradient>
-                <radialGradient id="moon3DSphere" cx="36%" cy="34%" r="64%">
-                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
-                  <stop offset="55%" stopColor="#000000" stopOpacity="0" />
-                  <stop offset="85%" stopColor="#09121d" stopOpacity="0.38" />
-                  <stop offset="100%" stopColor="#04080e" stopOpacity="0.75" />
+                <radialGradient id="moon3DSphere" cx="38%" cy="36%" r="62%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.16" />
+                  <stop offset="50%" stopColor="#000000" stopOpacity="0" />
+                  <stop offset="85%" stopColor="#09121d" stopOpacity="0.42" />
+                  <stop offset="100%" stopColor="#04080e" stopOpacity="0.72" />
                 </radialGradient>
                 <filter id="mareBlur" x="-10%" y="-10%" width="120%" height="120%">
-                  <feGaussianBlur stdDeviation="1.8" />
+                  <feGaussianBlur stdDeviation="2" />
                 </filter>
                 <filter id="craterGlow">
                   <feGaussianBlur stdDeviation="0.8" result="blur" />
@@ -385,13 +369,20 @@ export function CelestialSky({ theme, externalTime, weather }) {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                <filter id="moonSoftLimb" x="-10%" y="-10%" width="120%" height="120%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blurLimb" />
+                  <feMerge>
+                    <feMergeNode in="blurLimb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
                 <clipPath id="moonDiskClip">
                   <circle cx="50" cy="50" r="46" />
                 </clipPath>
               </defs>
-              <g clipPath="url(#moonDiskClip)">
+              <g clipPath="url(#moonDiskClip)" filter="url(#moonSoftLimb)">
                 <circle cx="50" cy="50" r="46" fill="url(#moonBaseGrad)" />
-                <g filter="url(#mareBlur)" opacity="0.68">
+                <g filter="url(#mareBlur)" opacity="0.38">
                   <path
                     d="M 20 26 C 26 16, 44 16, 48 24 C 54 32, 46 44, 38 48 C 28 52, 18 44, 20 26 Z"
                     fill="#556172"
@@ -414,40 +405,32 @@ export function CelestialSky({ theme, externalTime, weather }) {
                     fill="#505c6e"
                   />
                 </g>
-                <g opacity="0.6">
-                  <line x1="46" y1="78" x2="16" y2="52" stroke="#ffffff" strokeWidth="0.8" opacity="0.45" />
-                  <line x1="46" y1="78" x2="26" y2="34" stroke="#ffffff" strokeWidth="0.9" opacity="0.5" />
-                  <line x1="46" y1="78" x2="42" y2="18" stroke="#ffffff" strokeWidth="0.8" opacity="0.4" />
-                  <line x1="46" y1="78" x2="68" y2="28" stroke="#ffffff" strokeWidth="0.9" opacity="0.5" />
-                  <line x1="46" y1="78" x2="82" y2="48" stroke="#ffffff" strokeWidth="0.75" opacity="0.4" />
-                  <line x1="46" y1="78" x2="76" y2="76" stroke="#ffffff" strokeWidth="0.8" opacity="0.45" />
-                  <line x1="46" y1="78" x2="32" y2="86" stroke="#ffffff" strokeWidth="0.7" opacity="0.4" />
+                <g opacity="0.35">
+                  <line x1="46" y1="78" x2="16" y2="52" stroke="#ffffff" strokeWidth="0.6" opacity="0.35" />
+                  <line x1="46" y1="78" x2="26" y2="34" stroke="#ffffff" strokeWidth="0.7" opacity="0.4" />
+                  <line x1="46" y1="78" x2="42" y2="18" stroke="#ffffff" strokeWidth="0.6" opacity="0.3" />
+                  <line x1="46" y1="78" x2="68" y2="28" stroke="#ffffff" strokeWidth="0.7" opacity="0.4" />
+                  <line x1="46" y1="78" x2="82" y2="48" stroke="#ffffff" strokeWidth="0.6" opacity="0.3" />
+                  <line x1="46" y1="78" x2="76" y2="76" stroke="#ffffff" strokeWidth="0.6" opacity="0.35" />
+                  <line x1="46" y1="78" x2="32" y2="86" stroke="#ffffff" strokeWidth="0.5" opacity="0.3" />
                 </g>
-                <circle cx="46" cy="78" r="3" fill="#ffffff" filter="url(#craterGlow)" />
-                <circle cx="46" cy="78" r="1.6" fill="#ccd7e6" />
-                <g filter="url(#craterGlow)" opacity="0.85">
-                  <circle cx="36" cy="42" r="3.2" fill="#eef3fa" opacity="0.65" />
-                  <circle cx="36" cy="42" r="1.4" fill="#ffffff" />
-                  <circle cx="36.5" cy="42.5" r="0.8" fill="#7a8799" />
+                <circle cx="46" cy="78" r="2.5" fill="#ffffff" opacity="0.8" filter="url(#craterGlow)" />
+                <circle cx="46" cy="78" r="1.3" fill="#ccd7e6" />
+                <g filter="url(#craterGlow)" opacity="0.6">
+                  <circle cx="36" cy="42" r="2.8" fill="#eef3fa" opacity="0.5" />
+                  <circle cx="36" cy="42" r="1.1" fill="#ffffff" />
+                  <circle cx="36.5" cy="42.5" r="0.6" fill="#7a8799" />
                 </g>
-                <circle cx="25" cy="43" r="2.2" fill="#ffffff" opacity="0.75" />
-                <circle cx="25" cy="43" r="0.9" fill="#8895a6" />
-                <circle cx="24" cy="31" r="1.8" fill="#ffffff" filter="url(#craterGlow)" />
+                <circle cx="25" cy="43" r="1.8" fill="#ffffff" opacity="0.5" />
+                <circle cx="25" cy="43" r="0.7" fill="#8895a6" />
+                <circle cx="24" cy="31" r="1.4" fill="#ffffff" opacity="0.6" filter="url(#craterGlow)" />
                 <circle cx="50" cy="50" r="46" fill="url(#moon3DSphere)" />
                 <path
                   d="M 50 4 Q 88 50 50 96 A 46 46 0 0 1 50 4"
                   fill="#000000"
-                  opacity="0.14"
+                  opacity="0.12"
                 />
               </g>
-              <circle
-                cx="50"
-                cy="50"
-                r="46"
-                fill="none"
-                stroke="rgba(215, 235, 255, 0.45)"
-                strokeWidth="1.2"
-              />
             </svg>
           </div>
         )}

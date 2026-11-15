@@ -86,6 +86,13 @@ const featuredProjects = [
     image: openKioskImg,
     tags: ['Multi-tenant', 'E-commerce', 'Storefront Builder', 'SaaS', 'Zero-Code'],
     url: 'https://open-kiosk.vercel.app/',
+  }, {
+    name: 'Tractiv',
+    description:
+      'A workspace platform that helps companies coordinate team workflows, set precise access permissions, and track every change with a complete, tamper-proof activity log.',
+    image: tractivImg,
+    tags: ['Team Management', 'Access Control', 'NestJS', 'PostgreSQL', 'Audit Logs'],
+    url: 'https://tractiv-frontend.vercel.app/',
   },
   {
     name: 'Skillbridge Africa',
@@ -95,14 +102,7 @@ const featuredProjects = [
     tags: ['React 19', 'Tailwind CSS v4', 'Vite', 'Marketplace', 'African Cities'],
     url: 'https://skillbridge-africa-seven.vercel.app/',
   },
-  {
-    name: 'Tractiv',
-    description:
-      'A workspace platform that helps companies coordinate team workflows, set precise access permissions, and track every change with a complete, tamper-proof activity log.',
-    image: tractivImg,
-    tags: ['Team Management', 'Access Control', 'NestJS', 'PostgreSQL', 'Audit Logs'],
-    url: 'https://tractiv-frontend.vercel.app/',
-  },
+
 ];
 
 const projects = [
